@@ -1,6 +1,7 @@
 import "./App.css";
 
 import { useState, useEffect } from "react";
+import { useRef } from "react";
 
 
 import { Movies } from "./components/Movies";
@@ -9,8 +10,15 @@ import { useMovies } from "./hook/useMovies";
 function useSearch() {
   const [search, updateSearch] = useState("");
   const [error, setError] = useState(null);
+  const isfirstInput = useRef(true)
 
   useEffect(() => {
+
+    if(isfirstInput.current){
+      isfirstInput.current = search === ''
+      return
+    }
+
     if (search === "") {
       setError("no se puede mostrar una pelicula vacia");
       return;
@@ -52,7 +60,7 @@ function App() {
     <div className="page">
       <header>
         <h1>Buscador de Peliculas</h1>
-        <form action="" onSubmit={handleSubmit}>
+        <form className="form" action="" onSubmit={handleSubmit}>
           <input
             onChange={handleChange}
             value={search}
