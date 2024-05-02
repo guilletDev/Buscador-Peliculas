@@ -55,12 +55,10 @@ function App() {
   }
 
   const handleChange = (e) => {
-    updateSearch(e.target.value);
+    const newSearch = e.target.value
+    updateSearch(newSearch);
+    getMovies({search: newSearch})
   };
-
-  useEffect(()=>{
-    console.log('new getMovies received')
-  },[getMovies])
 
   return (
     <div className="page">
