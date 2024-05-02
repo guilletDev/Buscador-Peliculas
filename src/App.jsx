@@ -8,6 +8,7 @@ import { Movies } from "./components/Movies";
 import { useMovies } from "./hook/useMovies";
 
 function useSearch() {
+  
   const [search, updateSearch] = useState("");
   const [error, setError] = useState(null);
   const isfirstInput = useRef(true)
@@ -39,18 +40,27 @@ function useSearch() {
 
 
 function App() {
-  
+  const [sort, setSort] = useState(false)
   const { search, updateSearch, error } = useSearch();
-  const { movies, getMovies } = useMovies({search});
+  const { movies, getMovies } = useMovies({search, sort});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getMovies()
+    getMovies({search})
   };
+  
+  //Activar o desactivar
+  const handleSort = ()=>{
+    setSort(!sort)
+  }
 
   const handleChange = (e) => {
     updateSearch(e.target.value);
   };
+
+  useEffect(()=>{
+    console.log('new getMovies received')
+  },[getMovies])
 
   return (
     <div className="page">
@@ -63,6 +73,7 @@ function App() {
             type="text"
             placeholder="Avengers, Matrix .."
           />
+          <input type="checkbox" onChange={handleSort} checked={sort} />
           <button type="submit">Buscar</button>
         </form>
         {error && <p style={{ color: "red" }}>{error}</p>}
