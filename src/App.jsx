@@ -21,7 +21,7 @@ function useSearch() {
     }
 
     if (search === "") {
-      setError("no se puede mostrar una pelicula vacia");
+      setError("No se puede buscar una película vacia");
       return;
     }
 
@@ -70,7 +70,7 @@ function App() {
   return (
     <div className="page">
       <header>
-        <h1>Buscador de Peliculas</h1>
+        <h1>Busca tus peliculas</h1>
         <form className="form" action="" onSubmit={handleSubmit}>
           <input
             onChange={handleChange}
@@ -81,7 +81,7 @@ function App() {
           <input type="checkbox" onChange={handleSort} checked={sort} />
           <button type="submit">Buscar</button>
         </form>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p style={{ color: "red", marginLeft: '40px' }}>{error}</p>}
       </header>
       <main>
         <Movies movies={movies} />
